@@ -1,5 +1,5 @@
 
-name: Build Vite Project
+name: Build Vite Project (Bun)
 
 on:
   push:
@@ -14,19 +14,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v1
         with:
-          node-version: 20
-          cache: 'yarn'
+          bun-version: latest
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: bun install
 
       - name: Build Vite project
-        run: yarn build
+        run: bun run build
 
-      - name: Upload build artifacts
+      - name: Upload dist folder
         uses: actions/upload-artifact@v4
         with:
           name: dist
